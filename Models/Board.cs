@@ -1,4 +1,4 @@
-namespace TODO_List{
+namespace TODO_List.Models{
     public class Board{
         private int id;
         private int ownerUserId;
