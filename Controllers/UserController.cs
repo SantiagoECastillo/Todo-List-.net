@@ -30,7 +30,7 @@ namespace TODO_List.Controllers{
         [Route("CreateUser")]
         public IActionResult CreateUser(User user){
             _userRepository.CreateUser(user);
-            return RedirectToAction("Index");
+            return RedirectToAction("GetUser");
         }
 
         [HttpGet]
