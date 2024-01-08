@@ -21,12 +21,14 @@ namespace TODO_List.Repository{
             }
         }
         public void UpdateUser(int id, User user){
-            var query = $"UPDATE Usuario SET nombre_de_usuario = @userName  WHERE id = '{id}';";
+            var query = $"UPDATE Usuario SET nombre_de_usuario = @userName WHERE id = @id;";
 
             using(SQLiteConnection connection = new SQLiteConnection(connectionString)){
                 var command = new SQLiteCommand(query, connection);
 
                 command.Parameters.Add(new SQLiteParameter("@userName", user.UserName));
+                command.Parameters.Add(new SQLiteParameter("@id", id));
+
 
                 connection.Open();
                 command.ExecuteNonQuery();

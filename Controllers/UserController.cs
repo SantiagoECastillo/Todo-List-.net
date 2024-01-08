@@ -14,7 +14,7 @@ namespace TODO_List.Controllers{
         }
 
 
-        public IActionResult Index(){
+        public IActionResult GetUser(){
             var users = _userRepository.GetAllUsers();
             return View(users);
         }
@@ -42,13 +42,13 @@ namespace TODO_List.Controllers{
             var modifiedUser = _userRepository.GetUserById(user.Id);
             modifiedUser.UserName = user.UserName;
             _userRepository.UpdateUser(user.Id, modifiedUser);
-            return RedirectToAction("Index");
+            return RedirectToAction("GetUser");
         }
 
         [HttpPost]
         public IActionResult DeleteUser(int id){
             _userRepository.DeleteUser(id);
-            return RedirectToAction("Index");
+            return RedirectToAction("GetUser");
         }
 
     }
