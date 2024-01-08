@@ -1,0 +1,31 @@
+@model List<User>
+
+<h2>Usuarios</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Nombre</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var user in Model){
+            <tr>
+                <td>@user.UserName</td>
+                <td>
+                    <button type="button" class="btn btn-secondary">
+                        <a class="" asp-controller="User" asp-action="UpdateUser" asp-route-idUser="@user.Id">Edit</a>
+                    </button>
+
+                    <button type="button" class="btn btn-danger">
+                        <a class="" asp-controller="User" asp-action="DeleteUser" asp-route-idUser="@user.Id"
+                            onclick="return confirm('Are you sure to DELETE the user @user.UserName?')">
+                        Remove</a>
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-controller="User" asp-action="CreateUser">Create User</a>
