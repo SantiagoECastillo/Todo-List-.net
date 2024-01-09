@@ -5,7 +5,7 @@ using TODO_List.Models;
 namespace TODO_List.Repository{
     public class UserRepository : IUserRepository{
         
-        private String connectionString = "Data Source=DB/kanba.db;Cache=Shared";
+        private String connectionString = "Data Source=DB/kanba1.db;Cache=Shared";
         
         public void CreateUser(User user){
             var query = $"INSERT INTO Usuario(nombre_de_usuario) VALUES(@userName)";
@@ -59,7 +59,7 @@ namespace TODO_List.Repository{
             var user = new User();
             SQLiteCommand command = connection.CreateCommand();
             command.CommandText = "SELECT * FROM Usuario WHERE id = @idUser";
-            command.Parameters.Add(new SQLiteParameter("idUser", id));  
+            command.Parameters.Add(new SQLiteParameter("@idUser", id));  
             connection.Open();
             using(SQLiteDataReader reader = command.ExecuteReader()){
                 while(reader.Read()){
@@ -72,13 +72,15 @@ namespace TODO_List.Repository{
             return user;
         }
         public void DeleteUser(int id){
-            SQLiteConnection connection = new SQLiteConnection(connectionString);
-            SQLiteCommand command = connection.CreateCommand();
-            command.CommandText = "DELETE FROM Usuario WHERE id = @idUser";
-            command.Parameters.Add(new SQLiteParameter("idUser", id));  
-            connection.Open();
-            command.ExecuteNonQuery();
-            connection.Close();
+            using(SQLiteConnection connection = new SQLiteConnection(connectionString)){
+                SQLiteCommand command = connection.CreateCommand();
+                command.CommandText = $"DELETE FROM Usuario WHERE id = @idUser";
+                command.Parameters.Add(new SQLiteParameter("@idUser", id));  
+                
+                connection.Open();
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
         }
     }
 }

@@ -45,9 +45,9 @@ namespace TODO_List.Controllers{
             return RedirectToAction("GetUser");
         }
 
-        [HttpPost]
-        public IActionResult DeleteUser(int id){
-            _userRepository.DeleteUser(id);
+        //[HttpPost]
+        public IActionResult DeleteUser(int idUser){
+            _userRepository.DeleteUser(idUser);
             return RedirectToAction("GetUser");
         }
 
